@@ -1,0 +1,25 @@
+.sidebar {
+    background-color: #000;
+}
+
+.sidebar__logo {
+    max-width: 130px;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.sidebar__nav {
+    color: #999;
+    font-weight: 700;
+    margin: 10px 0;
+}
+
+.nav__item {
+    margin: 8px 0;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        display: none;
+    }
+}
