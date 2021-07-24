@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 
 export default function useAuth(code) {
@@ -8,7 +8,7 @@ export default function useAuth(code) {
 
     useEffect(() => {
 
-        axios.post('http://localhost:3001/login', {
+        axios.post('https://spotify-clone-tomasvc.herokuapp.com/login', {
             code
         })
         .then(res => {
@@ -23,6 +23,26 @@ export default function useAuth(code) {
         })
 
     }, [code])
+
+    useEffect(() => {
+        if (!refreshToken || !expiresIn) return
+        const interval = setInterval(() => {
+          axios
+            .post("https://spotify-clone-tomasvc.herokuapp.com/refresh", {
+              refreshToken,
+            })
+            .then(res => {
+              setAccessToken(res.data.accessToken)
+              setExpiresIn(res.data.expiresIn)
+            })
+            .catch(() => {
+              window.location = "/"
+            })
+        }, (expiresIn - 60) * 1000)
+    
+        return () => clearInterval(interval)
+      }, [refreshToken, expiresIn])
+    
 
     return accessToken
 
