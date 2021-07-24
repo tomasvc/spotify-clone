@@ -91,7 +91,6 @@ export default function Dashboard({ code }) {
             console.log(data)
             setRecentlyPlayedTracks(
                 data.body.items.map(track => {
-                    console.log(track)
                     return {
                         id: track.id,
                         artist: track.artists[0].name,
@@ -113,7 +112,7 @@ export default function Dashboard({ code }) {
 
     return (
         <div className="dashboard flex flex-col w-full h-auto m-0 pt-2.5">
-            <div className="flex justify-between items-center px-7">
+            <div className="search-bar shadow-2xl flex justify-between items-center px-7">
                 <input
                     className="search max-w-md w-full px-3 py-2 rounded-full outline-none placeholder-gray-50::placeholder"
                     type="search"
@@ -121,7 +120,7 @@ export default function Dashboard({ code }) {
                     value={search}
                     onChange={e => setSearch(e.target.value)}
                 />
-                <p className="text-gray-50 text-base font-semibold">{user?.body.display_name}</p>
+                <p className="min-w-min text-gray-50 text-base font-semibold">{user?.body.display_name}</p>
             </div>
             {!search && <Playlists className="px-7" playlists={userPlaylists} chooseTrack={chooseTrack} />}
             <div className="container mx-auto h-screen overflow-y-auto px-7">{searchResults.map(track => {

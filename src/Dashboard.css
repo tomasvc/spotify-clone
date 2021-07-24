@@ -1,3 +1,7 @@
 .dashboard {
     background-color: #111;
 }
+
+.search-bar {
+    box-shadow: 5px 5px #111;
+}
