@@ -9,6 +9,7 @@ export default function Player({ accessToken, trackUri }) {
     if (!accessToken) return null
 
     return (
+
         <SpotifyPlayer
             className="p-5"
             token={accessToken}
@@ -28,4 +29,5 @@ export default function Player({ accessToken, trackUri }) {
             }}
         />
     )
+    
 }

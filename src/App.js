@@ -7,6 +7,7 @@ import Player from './Player'
 const code = new URLSearchParams(window.location.search).get('code')
 
 function App() {
+
   return code ? 
   <div className="app h-screen flex flex-1 flex-nowrap w-screen">
     <Sidebar />
@@ -14,6 +15,7 @@ function App() {
   </div>
   : 
   <Login />
+  
 }
 
 export default App;

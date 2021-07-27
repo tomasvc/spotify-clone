@@ -1,7 +1,28 @@
-.dashboard {
-    background-color: #111;
-}
+@media (max-width: 600px) {
 
-.search-bar {
-    box-shadow: 5px 5px #111;
+    .username {
+        display: none;
+    }
+
+    .user-icon {
+        padding-right: 0.25rem;
+    }
+
+    .search-bar, .greeting, .playlists, .recently-played {
+        padding: 0 1rem;
+    }
+
+    .playlists, .recently-played {
+        margin: 0;
+    }
+
+    .recently-played {
+        padding-bottom: 6rem;
+    }
+
+    .playlist-item, .recently-played-item, .heading {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
 }

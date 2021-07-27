@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 
 export default function useAuth(code) {
+
     const [accessToken, setAccessToken] = useState()
     const [refreshToken, setRefreshToken] = useState()
     const [expiresIn, setExpiresIn] = useState()
@@ -15,7 +16,6 @@ export default function useAuth(code) {
             setAccessToken(res.data.accessToken)
             setRefreshToken(res.data.refreshToken)
             setExpiresIn(res.data.expiresIn)
-            console.log(res.data)
             window.history.pushState({}, null, '/')
         })
         .catch(() => {
@@ -25,6 +25,7 @@ export default function useAuth(code) {
     }, [code])
 
     useEffect(() => {
+
         if (!refreshToken || !expiresIn) return
         const interval = setInterval(() => {
           axios
@@ -42,7 +43,6 @@ export default function useAuth(code) {
     
         return () => clearInterval(interval)
       }, [refreshToken, expiresIn])
-    
 
     return accessToken
 

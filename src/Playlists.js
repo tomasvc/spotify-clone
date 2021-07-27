@@ -2,21 +2,18 @@ import React from 'react'
 
 export default function Playlists({ playlists, chooseTrack }) {
 
-    // function handlePlay(playlist) {
-    //     chooseTrack(playlist)
-    // }
-
     return (
+
         <div className="text-gray-50">
-            <h3 className="my-5 px-7 text-3xl font-bold">Good morning</h3>
-            <div className="flex flex-grow flex-wrap justify-between">
+            <div className="playlists flex flex-grow flex-wrap mx-5">
                 {playlists?.map(playlist => {
-                    <div className="px-5 py-7 mb-5 w-72 bg-gray-50 bg-opacity-10 hover:bg-opacity-20 duration-300 cursor-pointer rounded" >
-                        <img src={playlist.image?.url} alt="" width="50" />
-                        <p className="font-bold">{playlist.name}</p>
+                    return <div key={playlist.id} className="playlist-item flex items-center mx-3 mb-5 w-72 h-20 bg-gray-50 bg-opacity-10 hover:bg-opacity-20 duration-300 cursor-pointer rounded" onClick={() => chooseTrack(playlist)} >
+                        <img className="rounded-l" src={playlist.image?.url} alt="" width="80" />
+                        <p className="font-bold ml-4">{playlist.name}</p>
                     </div>
                 })}
             </div>
         </div>
     )
+
 }

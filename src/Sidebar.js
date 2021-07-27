@@ -2,8 +2,9 @@ import React from 'react'
 import './Sidebar.css'
 
 export default function Sidebar() {
+    
     return (
-        <div className="sidebar flex-grow-0 p-6">
+        <div className="sidebar p-6">
             <div className="sidebar__logo">
                 <svg viewBox="0 0 1134 340">
                     <path fill="#fff" d="M8 171c0 92 76 168 168 168s168-76 168-168S268 4 176 4 8 79 8 171zm230 78c-39-24-89-30-147-17-14 
