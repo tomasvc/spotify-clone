@@ -2,7 +2,6 @@ import './App.css';
 import Login from './Login'
 import Sidebar from './Sidebar'
 import Dashboard from './Dashboard'
-import Player from './Player'
 
 const code = new URLSearchParams(window.location.search).get('code')
 
@@ -15,7 +14,7 @@ function App() {
   </div>
   : 
   <Login />
-  
+
 }
 
 export default App;

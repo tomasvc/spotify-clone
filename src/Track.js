@@ -5,7 +5,6 @@ export default function Track({ track, chooseTrack }) {
 
     function handlePlay() {
         chooseTrack(track)
-
     }
 
     return (
@@ -17,5 +16,5 @@ export default function Track({ track, chooseTrack }) {
             </div>
         </div>
     )
-    
+
 }
