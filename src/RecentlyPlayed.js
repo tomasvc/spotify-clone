@@ -9,7 +9,7 @@ export default function RecentlyPlayed({ recentlyPlayed, chooseTrack }) {
                 {recentlyPlayed?.map((track => {
                     return <div
                     key={track.id} 
-                    className="recently-played-item flex items-center mx-3 mb-5 w-72 bg-gray-50 bg-opacity-10 hover:bg-opacity-20 duration-300 cursor-pointer rounded" 
+                    className="recently-played-item flex flex-grow items-center mx-3 mb-5 w-72 bg-gray-50 bg-opacity-10 hover:bg-opacity-20 duration-300 cursor-pointer rounded" 
                     onClick={() => chooseTrack(track)}
                     >
                     <img className="rounded-l" src={track.image} alt="" width="80" />
