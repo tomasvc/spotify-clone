@@ -1,7 +1,7 @@
 import React from 'react'
 import './Login.css'
 
-const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=bfcaf900cafd40f7b674c44052d6ea97&response_type=code&redirect_uri=https://flamboyant-williams-be2f38.netlify.app&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20user-read-recently-played`
+const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=a344e815ed30434c80ce17492635db24&response_type=code&redirect_uri=https://flamboyant-williams-be2f38.netlify.app&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20user-read-recently-played`
 
 export default function Login() {
 
