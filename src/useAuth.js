@@ -9,7 +9,7 @@ export default function useAuth(code) {
 
     useEffect(() => {
 
-        axios.post('https://spotify-clone-tomasvc.herokuapp.com/login', {
+        axios.post('https://spotify-clone-tomasvc-test.herokuapp.com/login', {
             code
         })
         .then(res => {
@@ -18,8 +18,9 @@ export default function useAuth(code) {
             setExpiresIn(res.data.expiresIn)
             window.history.pushState({}, null, '/')
         })
-        .catch(() => {
-            window.location = '/'
+        .catch((error) => {
+            console.log(error)
+            //window.location = '/'
         })
 
     }, [code])
@@ -29,7 +30,7 @@ export default function useAuth(code) {
         if (!refreshToken || !expiresIn) return
         const interval = setInterval(() => {
           axios
-            .post("https://spotify-clone-tomasvc.herokuapp.com/refresh", {
+            .post("https://spotify-clone-tomasvc-test.herokuapp.com/refresh", {
               refreshToken,
             })
             .then(res => {

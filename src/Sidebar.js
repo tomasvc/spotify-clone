@@ -46,11 +46,32 @@ export default function Sidebar() {
                     <p className="pl-4">Search</p>
                 </div>
                 <div className="nav__item flex cursor-pointer hover:text-gray-50 duration-200">
-                <svg viewBox="0 0 512 512" width="24" height="24">
+                    <svg viewBox="0 0 512 512" width="24" height="24">
                         <path fill="#fff" d="M291.301 81.778l166.349 373.587-19.301 8.635-166.349-373.587zM64 
                         463.746v-384h21.334v384h-21.334zM192 463.746v-384h21.334v384h-21.334z"></path>
                     </svg>
                     <p className="pl-4">Your Library</p>
+                </div>
+                <div className="mt-5">
+                    <div className="nav__item flex cursor-pointer hover:text-gray-50 duration-200">
+                        <div className="flex justify-center items-center bg-gray-400 w-6 h-6 mb-2">
+                            <svg className="flex items-center" viewBox="0 0 16 16" width="12" height="12">
+                                <path d="M14 7H9V2H7v5H2v2h5v5h2V9h5z"></path>
+                                <path fill="none" d="M0 0h16v16H0z"></path>
+                            </svg>
+                        </div>
+                        <p className="pl-4">Create Playlist</p>
+                    </div>
+                    <div className="nav__item flex cursor-pointer hover:text-gray-50 duration-200">
+                        <div className="flex justify-center items-center w-6 h-6" style={{background: 'linear-gradient(135deg,#450af5,#c4efd9)'}}>
+                            <svg viewBox="0 0 16 16" width="12" height="12">
+                                <path fill="#fff" d="M13.797 2.727a4.057 4.057 0 00-5.488-.253.558.558 0 01-.31.112.531.531 0 01-.311-.112 4.054 4.054 0 00-5.487.253c-.77.77-1.194 1.794-1.194 2.883s.424 2.113 1.168 2.855l4.462 5.223a1.791 1.791 0 002.726 0l4.435-5.195a4.052 4.052 0 001.195-2.883 4.057 4.057 0 00-1.196-2.883z"></path>
+                                <path fill="none" d="M0 0h16v16H0z"></path>
+                            </svg>
+                        </div>
+                        <p className="pl-4">Liked Songs</p>
+                    </div>
+                    <div></div>
                 </div>
             </div>
         </div>

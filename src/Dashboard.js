@@ -1,17 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, lazy, Suspense } from 'react'
 import './Dashboard.css'
 import Track from './Track'
 import Player from './Player'
-import Playlists from './Playlists'
-import RecentlyPlayed from './RecentlyPlayed'
 import useAuth from './useAuth'
-import SpotifyWebApi from 'spotify-web-api-node'
 
-const spotifyApi = new SpotifyWebApi({
-    clientId: 'a344e815ed30434c80ce17492635db24'
-})
+const Playlists = lazy(() => import('./Playlists'))
+const RecentlyPlayed = lazy(() => import('./RecentlyPlayed'))
 
-export default function Dashboard({ code }) {
+export default function Dashboard({ code, spotifyApi }) {
 
     const accessToken = useAuth(code)
 
@@ -26,6 +22,10 @@ export default function Dashboard({ code }) {
     const [time, setTime] = useState()
     const [greeting, setGreeting] = useState()
 
+    const [openMenu, setOpenMenu] = useState(false)
+
+
+    // get current time to use for greeting
     useEffect(() => {
 
         const getTime = () => {
@@ -37,6 +37,8 @@ export default function Dashboard({ code }) {
 
     }, [])
 
+
+    // determine which greeting to use based on the time
     useEffect(() => {
 
         if (time >= 18) {
@@ -49,10 +51,14 @@ export default function Dashboard({ code }) {
 
     }, [time])
 
+
+    // get user playlists
     useEffect(() => {
 
         if (!accessToken) return
+
         spotifyApi.setAccessToken(accessToken)
+
         spotifyApi.getMe().then(data => {
 
             setUser(data)
@@ -87,6 +93,7 @@ export default function Dashboard({ code }) {
     }, [accessToken])
 
 
+    // get search results based on user input
     useEffect(() => {
 
         if (!search) return setSearchResults([])
@@ -118,13 +125,15 @@ export default function Dashboard({ code }) {
 
     }, [search, accessToken])
 
+
+    // get recently played tracks
     useEffect(() => {
 
         if (!accessToken) return
 
         spotifyApi.getMyRecentlyPlayedTracks({
 
-            limit : 12
+            limit : 8
 
         }).then(data => {
 
@@ -158,10 +167,13 @@ export default function Dashboard({ code }) {
         })
 
     }, [accessToken])
+    
 
+    // select track to be played
     function chooseTrack(track) {
         setPlayingTrack(track)
     }
+
 
     return (
 
@@ -174,7 +186,7 @@ export default function Dashboard({ code }) {
                     value={search}
                     onChange={e => setSearch(e.target.value)}
                 />
-                <div className="user-icon flex items-center bg-black pr-3 pl-1 py-1 ml-3 rounded-full duration-300 cursor-pointer hover:bg-gray-900">
+                <div onClick={() => setOpenMenu(!openMenu)} className="user-icon relative flex items-center bg-black pr-3 pl-1 py-1 ml-3 rounded-full duration-300 cursor-pointer hover:bg-gray-900">
                     <svg className="bg-gray-700 rounded-full p-3" width="16" height="16" fill="#fff" viewBox="0 0 18 20">
                         <path d="M15.216 13.717L12 11.869C11.823 11.768 11.772 11.607 11.757 11.521C11.742 11.435 11.737 11.267 
                         11.869 11.111L13.18 9.57401C14.031 8.58001 14.5 7.31101 14.5 6.00001V5.50001C14.5 3.98501 13.866 2.52301 
@@ -188,18 +200,32 @@ export default function Dashboard({ code }) {
                         10.772 11.691C10.849 12.132 11.115 12.513 11.503 12.736L14.721 14.585C16.127 15.384 17.001 16.884 
                         17.001 18.501V20H18.001V18.501C18 16.526 16.932 14.692 15.216 13.717Z"></path>
                     </svg>
-                    <p className="username ml-2 min-w-min text-gray-50 text-base font-semibold">{user?.body.display_name}</p>
+                    <p className="username ml-2 min-w-min text-gray-50 text-base font-semibold" >{user?.body.display_name}</p>
+                    <div className={`${openMenu ? 'flex' : 'hidden'} absolute justify-evenly flex-col w-48 h-32 top-10 right-0 rounded shadow-md`} style={{background: '#222'}}>
+                        <p className="bg-white bg-opacity-0 text-gray-200 text-sm font-medium w-full px-4 py-2 hover:bg-opacity-10">Account</p>
+                        <p className="bg-white bg-opacity-0 text-gray-200 text-sm font-medium w-full px-4 py-2 hover:bg-opacity-10">Profile</p>
+                        <p onClick={() => document.location = '/'} className="bg-white bg-opacity-0 text-gray-200 text-sm font-medium w-full px-4 py-2 hover:bg-opacity-10">Log out</p>
+                    </div>
                 </div>
             </div>
+
             {!search && <h3 className="greeting my-5 px-7 text-3xl text-gray-50 font-bold">{greeting}</h3>}
-            {!search && <Playlists className="px-7" playlists={userPlaylists} chooseTrack={chooseTrack} />}
-            {search && <div className="container h-screen overflow-y-auto px-7">{searchResults.map(track => {
-                return <Track track={track} key={track.id} chooseTrack={chooseTrack} />
+
+            {!search && 
+                <Suspense fallback={<h3 style={{color: '#fff'}}>Loading...</h3>}>
+                    <Playlists className="px-7" playlists={userPlaylists} chooseTrack={chooseTrack} />
+                    <RecentlyPlayed recentlyPlayed={recentlyPlayedTracks} chooseTrack={chooseTrack} />
+                </Suspense>}
+
+            {search && 
+                <div className="container h-screen overflow-y-auto px-7">{searchResults.map(track => {
+                    return <Track track={track} key={track.id} chooseTrack={chooseTrack} />
             })}</div>}
-            {!search && <RecentlyPlayed recentlyPlayed={recentlyPlayedTracks} chooseTrack={chooseTrack} />}
+
             <div className="player fixed l-0 b-0 w-full px-7 pt-7 pb-2.5 bg-player">
                 <Player accessToken={accessToken} trackUri={playingTrack?.uri} />
             </div>
+
         </div>
         
     )

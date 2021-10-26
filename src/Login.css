@@ -1,0 +1,24 @@
+.login {
+    background-image: url('./images/background.jpg');
+    background-repeat: norepeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.login__shadow {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background: linear-gradient(to top, #000, rgba(0, 0, 0, 0.3));
+    opacity: 0.8;
+    z-index: 0;
+}
+
+.login__container {
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

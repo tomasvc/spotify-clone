@@ -1,3 +1,7 @@
+.dashboard {
+    background: linear-gradient(to top, #111, #111, #111, rgb(66, 26, 122))
+}
+
 @media (max-width: 600px) {
 
     .username {
