@@ -9,7 +9,7 @@ export default function useAuth(code) {
 
     useEffect(() => {
 
-        axios.post('https://spotify-clone-tomasvc-test.herokuapp.com/login', {
+        axios.post('https://spotify-clone-tomasvc.herokuapp.com/login', {
             code
         })
         .then(res => {
@@ -30,7 +30,7 @@ export default function useAuth(code) {
         if (!refreshToken || !expiresIn) return
         const interval = setInterval(() => {
           axios
-            .post("https://spotify-clone-tomasvc-test.herokuapp.com/refresh", {
+            .post("https://spotify-clone-tomasvc.herokuapp.com/refresh", {
               refreshToken,
             })
             .then(res => {
